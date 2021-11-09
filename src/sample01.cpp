@@ -15,25 +15,30 @@ using namespace std;
 */
 /* -------------------------------------------------------------- */
 
+// ‘f””»’è
+// return ‘f”‚Ìtrue
+bool is_prime(int n) {
+	int flag = 0;
+	for (int i = 2; i < n; i++) {
+		if (n % i == 0) {
+			flag = 1;
+			break;
+		}
+	}
+	if (flag == 0 && n > 1) return true;
+	else return false; 
+}
+
 int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
 	int COUNT_N = 0;
 	int num;
 	// ‘f”‚©‚Ç‚¤‚©‚ğ”»’è
 	for (int i = 0;; i++) {
-		int flag = 0;
 		num = (a + i*d);
 		if (num == 1)continue;
-		for (int j = 2; j < num; j++) {
-			if (num % j == 0) {
-				flag = 1;
-				break;
-			}
-		}
-		if (flag == 0) {
+		if (is_prime(num) == true) {
 			COUNT_N++;
-			if (COUNT_N == n) {
-				return num;
-			}
+			if (COUNT_N == n) return num;
 		}
 	}
 }
@@ -51,6 +56,6 @@ int main() {
 	cout << nth_prime(331, 221, 177) << endl;
 	cout << nth_prime(259, 170, 40) << endl;
 	cout << nth_prime(269, 58, 102) << endl;
-	cin.get();
+	
 	return 0;
 }
