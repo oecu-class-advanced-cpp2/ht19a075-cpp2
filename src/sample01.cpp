@@ -15,27 +15,23 @@ using namespace std;
 */
 /* -------------------------------------------------------------- */
 
-// ‘f””»’è
-// return ‘f”‚Ìtrue
+// “®ìF‘f””»’è
+// –ß‚è’lF‘f”true, ‘f”‚Å‚È‚¢false
 bool is_prime(int n) {
-	int flag = 0;
-	for (int i = 2; i < n; i++) {
-		if (n % i == 0) {
-			flag = 1;
-			break;
-		}
+	if (n == 0 || n == 1) return false;
+	for (int i = 2; i <= sqrt(n); i++) {
+		if (n % i == 0) return false;
 	}
-	if (flag == 0 && n > 1) return true;
-	else return false; 
+	return true;
 }
 
+// “®ìF—^‚¦‚ç‚ê‚½³®” a ‚Æ d ‚Æ n ‚É‘Î‚µ‚ÄA‚±‚Ì“™·”—ñ‚ÉŠÜ‚Ü‚ê‚é n ”Ô–Ú‚Ì‘f”‚ğ•Ô‚·B
 int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
-	int COUNT_N = 0;
-	int num;
-	// ‘f”‚©‚Ç‚¤‚©‚ğ”»’è
+	int num;  // ”—ñ
+	int COUNT_N = 0;  // ‘f”‚Ìo‚½‰ñ”‚ğƒJƒEƒ“ƒg
 	for (int i = 0;; i++) {
-		num = (a + i*d);
-		if (num == 1)continue;
+		num = i*d + a;
+		// ‘f”‚Ì‚Ìˆ—
 		if (is_prime(num) == true) {
 			COUNT_N++;
 			if (COUNT_N == n) return num;
@@ -56,6 +52,6 @@ int main() {
 	cout << nth_prime(331, 221, 177) << endl;
 	cout << nth_prime(259, 170, 40) << endl;
 	cout << nth_prime(269, 58, 102) << endl;
-	
+
 	return 0;
 }
