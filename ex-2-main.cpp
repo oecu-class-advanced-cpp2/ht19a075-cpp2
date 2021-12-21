@@ -1,4 +1,5 @@
 //ex-2-main.cpp
+//ht19a075 古澤 僚崇
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -49,8 +50,10 @@ namespace cpp2 {
 		2 つのオブジェクトの加算結果を取得します。
 		*/
 		/* ----------------------------------------------------------------- */
-		mcxi operator+(const mcxi& rhs) {
-			return rhs;
+		mcxi operator+(const mcxi& rhs) { //valueの足し算をする。
+			mcxi tc(rhs);
+			tc.value_ = this->value_ + rhs.value_;
+			return tc;
 		}
 
 		/* ----------------------------------------------------------------- */
@@ -60,8 +63,48 @@ namespace cpp2 {
 		現在の値を mcxi 記法に変換します。
 		*/
 		/* ----------------------------------------------------------------- */
-		std::string to_string() const {
-			return "XXX";
+		std::string to_string() const { //valueをmcxiにする。1000で割る。100で割る。.....
+			std::string str;
+			int cal = value_;
+			if (cal / 1000 >= 1) {
+				if (cal / 1000 == 1) {
+					str += "m";
+					cal -= 1000;
+				}
+				else {
+					str += std::to_string(cal / 1000) + "m";
+					cal -= (cal / 1000) * 1000;
+				}
+			};
+			if (cal / 100 >= 1) {
+				if (cal / 100 == 1) {
+					str += "c";
+					cal -= 100;
+				}
+				else {
+					str += std::to_string(cal / 100) + "c";
+					cal -= (cal / 100) * 100;
+				}
+			};
+			if (cal / 10 >= 1) {
+				if (cal / 10 == 1) {
+					str += "x";
+					cal -= 10;
+				}
+				else {
+					str += std::to_string(cal / 10) + "x";
+					cal -= (cal / 10) * 10;
+				}
+			};
+			if (cal % 10 >= 1) {
+				if (cal % 10 == 1) {
+					str += "i";
+				}
+				else {
+					str += std::to_string(cal % 10) + "i";
+				}
+			};
+			return str;
 		}
 
 		void debug_mcxi() {
@@ -84,13 +127,12 @@ namespace cpp2 {
 }
 
 int main() {
-	cpp2::mcxi a0("x9i");
-	a0.debug_mcxi();
+	cpp2::mcxi a0("xi");
+	//a0.debug_mcxi();
 	cpp2::mcxi b0("x9i");
 	auto result0 = a0 + b0;
 	std::cout << "3x" << " " << result0.to_string() << std::endl;
 
-	/*
 	cpp2::mcxi a1("i");
 	cpp2::mcxi b1("9i");
 	auto result1 = a1 + b1;
@@ -135,5 +177,4 @@ int main() {
 	cpp2::mcxi b9("c2x8i");
 	auto result9 = a9 + b9;
 	std::cout << "9m9c9x9i" << " " << result9.to_string() << std::endl;
-	*/
 }
